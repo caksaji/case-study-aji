@@ -3,7 +3,6 @@
     <SectionTitle title="Employee List" />
     <div>
       <SpTable
-        min-show-table-at="zero"
         :show-skeleton="showSkeleton"
         :empty-data="listTask ? false : true"
         empty-data-text="Oops, there is no employee found"
@@ -34,7 +33,6 @@
 <script setup>
 import SectionTitle from '~/components/partial/SectionTitle'
 import SpButton from '~/components/partial/SpButton'
-import IconSvg from '~/components/partial/IconSvg'
 import SpTable from '~/components/partial/SpTable'
 
 definePageMeta({
@@ -43,7 +41,6 @@ definePageMeta({
 
 useHead({ title: 'Employee list' })
 
-const colorMode = useColorMode()
 const showSkeleton = ref(true)
 const listTask = ref([])
 
