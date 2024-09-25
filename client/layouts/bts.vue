@@ -1,23 +1,26 @@
 <template>
   <div class="mx-auto" style="max-width: 1440px;">
-    <div class="container relative min-h-screen pt-8 pb-32 md:pb-12">
+    <div class="container min-h-screen pt-8 pb-32">
       <slot />
       <ModalsContainer />
-      <SpButton
-        color="prime"
-        size="sm"
-        icon-only
-        round
-        class="absolute bottom-8 right-4"
-        @click="swapColorMode"
-      >
-        <template #icon>
-          <div class="p-2">
-            <IconSvg v-if="colorMode.value === 'light'" name="sun-light" class="h-8 w-8" />
-            <IconSvg v-else-if="colorMode.value === 'dark'" name="half-moon" class="h-8 w-8" />
-          </div>
-        </template>
-      </SpButton>
+      <div class="fixed bottom-8 left-0 w-screen">
+        <div class="container flex justify-end w-full">
+          <SpButton
+            color="prime"
+            size="sm"
+            icon-only
+            round
+            @click="swapColorMode"
+          >
+            <template #icon>
+              <div class="p-2">
+                <IconSvg name="sun-light" class="h-8 w-8 dark:hidden" />
+                <IconSvg name="half-moon" class="hidden h-8 w-8 dark:block" />
+              </div>
+            </template>
+          </SpButton>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +39,5 @@ const swapColorMode = () => {
   else {
     colorMode.preference = 'light'
   }
-  showSidebar.value = false
 }
 </script>

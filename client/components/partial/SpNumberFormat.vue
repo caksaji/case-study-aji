@@ -6,7 +6,7 @@
 const props = defineProps({
   value: { type: [String, Number], default: null },
   lang: { type: String, default: 'id' },
-  type: { type: String, default: 'number' }
+  type: { type: String, default: 'number' } // number, currency
 })
 
 const formattedNumber = computed(() => {

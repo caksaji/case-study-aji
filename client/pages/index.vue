@@ -1,28 +1,103 @@
 <template>
   <div class="space-y-4">
-    <SectionTitle title="Employee List" />
+    <div class="flex w-full">
+      <SectionTitle title="Employee List" />
+      <SpButton v-if="!showSkeleton" color="prime" class="ml-auto" @click="openModalEdit(em)">
+        Add employee
+      </SpButton>
+    </div>
     <div>
       <SpTable
         :show-skeleton="showSkeleton"
-        :empty-data="listTask ? false : true"
+        :empty-data="listEmplopyee.data && listEmplopyee.data.length > 0 ? false : true"
         empty-data-text="Oops, there is no employee found"
+        :meta="{
+          from: ((listEmplopyee.next ? listEmplopyee.next - 1 : listEmplopyee.last) * 10) - 9,
+          to: (listEmplopyee.next ? listEmplopyee.next - 1 : listEmplopyee.last) * 10 <= listEmplopyee.items ? (listEmplopyee.next ? listEmplopyee.next - 1 : listEmplopyee.last) * 10 : listEmplopyee.items,
+          total: listEmplopyee.items,
+          current_page: listEmplopyee.next ? listEmplopyee.next - 1 : listEmplopyee.last,
+          last_page: listEmplopyee.last
+        }"
       >
+        <template #card>
+          <div v-for="(em, index) in listEmplopyee.data" :key="index" class="card-col">
+            <div class="card-border bg-white dark:bg-gray-800">
+              <div class="title w-full">
+                {{ em.nip }}
+              </div>
+              <div>
+                {{ em.firstName }}, {{ em.lastName }}
+              </div>
+              <div>
+                {{ em.division }}, {{ em.position }}
+              </div>
+              <div class="divide-y divide-gray-400 dark:divide-gray-500">
+                <div class="flex gap-2 items-center w-full py-2">
+                  <IconSvg name="calendar-plus" class="h-5 w-5" />
+                  <span>{{ date(em.joinDate) }}</span>
+                </div>
+                <div class="flex gap-2 items-center w-full py-2">
+                  <IconSvg name="receive-dollars" class="h-5 w-5" />
+                  <SpNumberFormat :value="em.salary" type="currency" />
+                </div>
+                <div class="flex gap-2 items-center w-full py-2">
+                  <IconSvg name="home-alt" class="h-5 w-5" />
+                  <span>{{ em.address }}</span>
+                </div>
+                <div class="flex gap-2 items-center w-full py-2">
+                  <IconSvg name="birthday-cake" class="h-5 w-5" />
+                  <span>{{ date(em.birthDate) }}</span>
+                </div>
+              </div>
+              <div class="flex justify-end gap-2 w-full">
+                <SpButton color="blue" @click="openModalEdit(em)">
+                  Update
+                </SpButton>
+                <SpButton color="red" @click="openModalEdit(em)">
+                  Delete
+                </SpButton>
+              </div>
+            </div>
+          </div>
+        </template>
         <template #thead>
-          <span class="tcell w-28">Kode</span>
-          <span class="tcell w-full shrink">Tugas</span>
-          <span class="tcell w-52">Status</span>
-          <span class="tcell w-28">Untuk</span>
-          <span class="tcell w-52">Durasi</span>
-          <span class="tcell w-24">Kategori</span>
+          <span class="tcell w-52">NIP</span>
+          <span class="tcell w-52">Division</span>
+          <span class="tcell w-32">Join date</span>
+          <span class="tcell w-36 text-center">Salary</span>
+          <span class="tcell w-full shrink">Address</span>
+          <span class="tcell w-32">Birth date</span>
+          <span class="tcell w-20" />
         </template>
         <template #tbody>
-          <div v-for="(item, index) in listTask" :key="index" class="tbody">
-            <span class="tcell w-28">{{ item.code }}</span>
-            <span class="tcell w-full shrink">{{ item.code }}</span>
-            <span class="tcell w-52">{{ item.code }}</span>
-            <span class="tcell w-28">{{ item.code }}</span>
-            <span class="tcell w-52">{{ item.code }}</span>
-            <span class="tcell w-24">{{ item.code }}</span>
+          <div v-for="(em, index) in listEmplopyee.data" :key="index" class="tbody">
+            <div class="tcell w-52">
+              <div class="font-semibold">
+                {{ em.nip }}
+              </div>
+              {{ em.firstName }}, {{ em.lastName }}
+            </div>
+            <span class="tcell w-52">{{ em.division }},<br>{{ em.position }}</span>
+            <span class="tcell w-32">{{ date(em.joinDate) }}</span>
+            <span class="tcell w-36 text-right"><SpNumberFormat :value="em.salary" type="currency" /></span>
+            <span class="tcell w-full shrink">{{ em.address }}</span>
+            <span class="tcell w-32">{{ date(em.birthDate) }}</span>
+            <div class="tcell flex justify-end gap-2 w-20">
+              <div>
+                <SpButton color="blue" size="sm" icon-only @click="openModalEdit(em)">
+                  <template #icon>
+                    <IconSvg name="edit-pencil" class="h-5 w-5" />
+                  </template>
+                </SpButton>
+              </div>
+              <div>
+                <SpButton color="red" size="sm" icon-only @click="openModalEdit(em)">
+                  <template #icon>
+                    <IconSvg name="trash" class="h-5 w-5" />
+                  </template>
+                </SpButton>
+              </div>
+            </div>
           </div>
         </template>
       </SpTable>
@@ -34,6 +109,8 @@
 import SectionTitle from '~/components/partial/SectionTitle'
 import SpButton from '~/components/partial/SpButton'
 import SpTable from '~/components/partial/SpTable'
+import IconSvg from '~/components/partial/IconSvg'
+import SpNumberFormat from '~/components/partial/SpNumberFormat'
 
 definePageMeta({
   layout: 'bts'
@@ -41,62 +118,23 @@ definePageMeta({
 
 useHead({ title: 'Employee list' })
 
+const employeeStore = useEmployeeStore()
 const showSkeleton = ref(true)
-const listTask = ref([])
+const filter = ref({ page: 1 })
+const listEmplopyee = ref({})
 
 onMounted(() => loadData())
 
-const getAllTask = computed(() => {
-  return {
-    data: {
-      name: 'Static Task',
-      date: ['2024-10-01', '2025-11-31'],
-      assignee: [
-        { id: 'asgn-1', name: 'ASGN 1' },
-        { id: 'asgn-2', name: 'ASGN 2' }
-      ],
-      codePrefix: 'STT',
-      task: [
-        {
-          code: '123',
-          taskName: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores, sunt.',
-          status: 'unassigned',
-          assignee: null,
-          date: ['2024-10-02', '2024-10-04'],
-          category: null,
-          description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores, sunt.'
-        }
-      ]
-    }
-  }
-})
-
 const loadData = async () => {
   showSkeleton.value = true
-  listTask.value = JSON.parse(JSON.stringify(getAllTask.value.data.task))
-  showSkeleton.value = false
+  await employeeStore.getAll(filter.value)
+    .then(() => {
+      listEmplopyee.value = JSON.parse(JSON.stringify(employeeStore.all))
+      showSkeleton.value = false
+    })
 }
-const formatDate = (date) => {
-  let formatted = null
-  if (date[0] === date[1]) {
-    formatted = `${date[0].getDate()} ${formatMonth(date[0].getMonth() + 1)} ${date[0].getFullYear()}`
-  }
-  else if ((date[0].getMonth() + 1) === (date[1].getMonth() + 1)) {
-    formatted = `${date[0].getDate()} - ${date[1].getDate()} ${formatMonth(date[0].getMonth() + 1)} ${date[0].getFullYear()}`
-  }
-  else if (date[0].getFullYear() === date[1].getFullYear()) {
-    formatted = `${date[0].getDate()} ${formatMonth(date[0].getMonth() + 1)} - ${date[1].getDate()} ${formatMonth(date[1].getMonth() + 1)} ${date[0].getFullYear()}`
-  }
-  else {
-    formatted = `${date[0].getDate()} ${formatMonth(date[0].getMonth() + 1)} ${date[0].getFullYear()} - ${date[1].getDate()} ${formatMonth(date[1].getMonth() + 1)} ${date[1].getFullYear()}`
-  }
-  let diffInTime = date[1].getTime() - date[0].getTime()
-  let diffInDay = Math.round(diffInTime / (1000 * 3600 * 24))
-
-  return `${formatted}\n(${diffInDay + 1} hari)`
-}
-const formatMonth = (month) => {
-  const newDate = new Date(`1970-${month}-01`)
-  return new Intl.DateTimeFormat('id-ID', { month: 'short' }).format(newDate)
+const date = (date) => {
+  const sd = date.split('-')
+  return new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(`${sd[1]}-${sd[0]}-${sd[2]}`))
 }
 </script>

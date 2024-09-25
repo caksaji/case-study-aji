@@ -93,7 +93,7 @@
           </div>
         </div>
         <div class="content-center h-12 px-4">
-          <SpNumberFormat :value="props.meta.current_page" /> of <SpNumberFormat :value="props.meta.last_page" /> pages
+          Page <SpNumberFormat :value="props.meta.current_page" /> of <SpNumberFormat :value="props.meta.last_page" /> pages
         </div>
         <div
           v-wave="!props.showSkeleton"
