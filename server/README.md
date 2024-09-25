@@ -9,7 +9,7 @@
 1. Install `json-server` (if you haven't already):
 
    ```bash
-   npm install json-server
+   npm install
    ```
 
 2. Navigate to the project directory where the `db.json` file is located
