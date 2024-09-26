@@ -82,7 +82,7 @@
         <div
           v-wave="!props.showSkeleton"
           :tabindex="!props.showSkeleton ? 0 : -1"
-          class="duration-300 outline-none focus:bg-gray-300 dark:focus:bg-gray-600"
+          class="duration-300 rounded-md outline-none focus:bg-gray-300 dark:focus:bg-gray-600"
           :class="{ 'hover:bg-gray-300 dark:hover:bg-gray-600': !props.showSkeleton, 'cursor-not-allowed': props.showSkeleton }"
           @click="changePage('prev')"
           @keydown.enter="changePage('prev')"
@@ -98,7 +98,7 @@
         <div
           v-wave="!props.showSkeleton"
           :tabindex="!props.showSkeleton ? 0 : -1"
-          class="duration-300 outline-none focus:bg-gray-300 dark:focus:bg-gray-600"
+          class="duration-300 rounded-md outline-none focus:bg-gray-300 dark:focus:bg-gray-600"
           :class="{ 'hover:bg-gray-300 dark:hover:bg-gray-600': !props.showSkeleton, 'cursor-not-allowed': props.showSkeleton }"
           @click="changePage('next')"
           @keydown.enter="changePage('next')"
@@ -141,9 +141,11 @@ const emit = defineEmits(['changePage'])
 
 const changePage = (to) => {
   if (to === 'prev' && !props.showSkeleton && props.meta.current_page > 1) {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     emit('changePage', props.meta.current_page - 1)
   }
   else if (to === 'next' && !props.showSkeleton && props.meta.current_page < props.meta.last_page) {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     emit('changePage', props.meta.current_page + 1)
   }
 }

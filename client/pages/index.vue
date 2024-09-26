@@ -42,7 +42,7 @@
               <div class="divide-y divide-gray-400 dark:divide-gray-500">
                 <div class="flex gap-2 items-center w-full py-2">
                   <IconSvg name="calendar-plus" class="h-5 w-5" />
-                  <span>{{ date(em.joinDate) }}</span>
+                  <span>{{ $date(em.joinDate) }}</span>
                 </div>
                 <div class="flex gap-2 items-center w-full py-2">
                   <IconSvg name="receive-dollars" class="h-5 w-5" />
@@ -54,7 +54,7 @@
                 </div>
                 <div class="flex gap-2 items-center w-full py-2">
                   <IconSvg name="birthday-cake" class="h-5 w-5" />
-                  <span>{{ date(em.birthDate) }}</span>
+                  <span>{{ $date(em.birthDate) }}</span>
                 </div>
               </div>
               <div class="flex justify-end gap-2 w-full">
@@ -83,10 +83,10 @@
               {{ em.firstName }}, {{ em.lastName }}
             </div>
             <span class="tcell w-52">{{ em.division }},<br>{{ em.position }}</span>
-            <span class="tcell w-32">{{ date(em.joinDate) }}</span>
+            <span class="tcell w-32">{{ $date(em.joinDate) }}</span>
             <span class="tcell w-36 text-right"><SpNumberFormat :value="em.salary" type="currency" /></span>
             <span class="tcell w-full shrink">{{ em.address }}</span>
-            <span class="tcell w-32">{{ date(em.birthDate) }}</span>
+            <span class="tcell w-32">{{ $date(em.birthDate) }}</span>
             <div class="tcell flex justify-end gap-2 w-24">
               <div>
                 <SpButton color="prime" border @click="openDetail(em.id)">
@@ -112,6 +112,7 @@ definePageMeta({ layout: 'bts' })
 
 useHead({ title: 'Employee list' })
 
+const { $date } = useNuxtApp()
 const newestEmployeeCookie = useCookie('newestEmployee')
 const employeeCookie = useCookie('employee')
 const employeeStore = useEmployeeStore()
@@ -133,10 +134,6 @@ const loadData = async () => {
       listEmplopyee.value = JSON.parse(JSON.stringify(employeeStore.all))
       showSkeleton.value = false
     })
-}
-const date = (date) => {
-  const sd = date.split('-')
-  return new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(`${sd[1]}-${sd[0]}-${sd[2]}`))
 }
 const changePage = async (to) => {
   filter.value.page = to

@@ -112,9 +112,7 @@ import SpInputText from '~/components/partial/SpInputText'
 import SpSelect from '~/components/partial/SpSelect'
 import SpButton from '~/components/partial/SpButton'
 
-definePageMeta({
-  layout: 'bts'
-})
+definePageMeta({ layout: 'bts' })
 
 useHead({ title: 'Add new employee' })
 

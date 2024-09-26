@@ -1,9 +1,11 @@
 export const useEmployeeStore = defineStore('employee', () => {
   const all = ref({})
   const last = ref({})
+  const single = ref({})
 
   const setAll = data => all.value = data
   const setLast = data => last.value = data
+  const setSingle = data => single.value = data
 
   const getAll = async (data) => {
     try {
@@ -19,14 +21,23 @@ export const useEmployeeStore = defineStore('employee', () => {
     }
     catch (error) { setLast({}) }
   }
+  const getSingle = async (data) => {
+    try {
+      const res = await fetchApi(`employees/${data}`, { method: 'get' })
+      setSingle(res)
+    }
+    catch (error) { setSingle({}) }
+  }
   const add = async data => await fetchApi('employees', { method: 'post', body: data })
   const edit = async data => await fetchApi('employees', { method: 'put', body: data })
 
   return {
     all,
     last,
+    single,
     getAll,
     getLast,
+    getSingle,
     add,
     edit
   }
