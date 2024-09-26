@@ -25,6 +25,7 @@
           current_page: listEmplopyee.next ? listEmplopyee.next - 1 : listEmplopyee.last,
           last_page: listEmplopyee.last
         }"
+        @change-page="changePage"
       >
         <template #card>
           <div v-for="(em, index) in listEmplopyee.data" :key="index" class="card-col">
@@ -57,11 +58,8 @@
                 </div>
               </div>
               <div class="flex justify-end gap-2 w-full">
-                <SpButton color="blue" @click="openModalEdit(em)">
-                  Update
-                </SpButton>
-                <SpButton color="red" @click="openModalEdit(em)">
-                  Delete
+                <SpButton color="prime" border @click="openDetail(em.id)">
+                  Detail
                 </SpButton>
               </div>
             </div>
@@ -74,7 +72,7 @@
           <span class="tcell w-36 text-center">Salary</span>
           <span class="tcell w-full shrink">Address</span>
           <span class="tcell w-32">Birth date</span>
-          <span class="tcell w-20" />
+          <span class="tcell w-24" />
         </template>
         <template #tbody>
           <div v-for="(em, index) in listEmplopyee.data" :key="index" class="tbody">
@@ -89,19 +87,10 @@
             <span class="tcell w-36 text-right"><SpNumberFormat :value="em.salary" type="currency" /></span>
             <span class="tcell w-full shrink">{{ em.address }}</span>
             <span class="tcell w-32">{{ date(em.birthDate) }}</span>
-            <div class="tcell flex justify-end gap-2 w-20">
+            <div class="tcell flex justify-end gap-2 w-24">
               <div>
-                <SpButton color="blue" size="sm" icon-only @click="openModalEdit(em)">
-                  <template #icon>
-                    <IconSvg name="edit-pencil" class="h-5 w-5" />
-                  </template>
-                </SpButton>
-              </div>
-              <div>
-                <SpButton color="red" size="sm" icon-only @click="openModalEdit(em)">
-                  <template #icon>
-                    <IconSvg name="trash" class="h-5 w-5" />
-                  </template>
+                <SpButton color="prime" border @click="openDetail(em.id)">
+                  Detail
                 </SpButton>
               </div>
             </div>
@@ -119,13 +108,12 @@ import SpTable from '~/components/partial/SpTable'
 import IconSvg from '~/components/partial/IconSvg'
 import SpNumberFormat from '~/components/partial/SpNumberFormat'
 
-definePageMeta({
-  layout: 'bts'
-})
+definePageMeta({ layout: 'bts' })
 
 useHead({ title: 'Employee list' })
 
 const newestEmployeeCookie = useCookie('newestEmployee')
+const employeeCookie = useCookie('employee')
 const employeeStore = useEmployeeStore()
 const showSkeleton = ref(true)
 const filter = ref({ page: 1 })
@@ -134,6 +122,7 @@ const loadingAdd = ref(false)
 
 onMounted(() => {
   newestEmployeeCookie.value = null
+  employeeCookie.value = null
   loadData()
 })
 
@@ -149,6 +138,10 @@ const date = (date) => {
   const sd = date.split('-')
   return new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(`${sd[1]}-${sd[0]}-${sd[2]}`))
 }
+const changePage = async (to) => {
+  filter.value.page = to
+  loadData()
+}
 const openAddForm = async () => {
   loadingAdd.value = true
   await employeeStore.getLast(listEmplopyee.value.items)
@@ -158,5 +151,9 @@ const openAddForm = async () => {
       navigateTo('/add')
       loadingAdd.value = false
     })
+}
+const openDetail = (data) => {
+  employeeCookie.value = { id: data }
+  navigateTo('/detail')
 }
 </script>
