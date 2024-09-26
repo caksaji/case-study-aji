@@ -1,14 +1,28 @@
 <template>
   <div class="space-y-4">
-    <SectionTitle title="Add New Employee" />
+    <SectionTitle title="Update Employee Data" />
     <div class="grid grid-cols-2 gap-4">
+      <div class="col-span-1">
+        <SpInputText label="NIP" imitation imitation-value :show-skeleton="showSkeleton" disabled>
+          <template #imitationValue>
+            {{ employeeCookie.nip }}
+          </template>
+        </SpInputText>
+      </div>
+      <div class="col-span-1">
+        <SpInputText label="Joined on" imitation imitation-value :show-skeleton="showSkeleton" disabled>
+          <template #imitationValue>
+            {{ employeeCookie.joinDate }}
+          </template>
+        </SpInputText>
+      </div>
       <div class="col-span-1">
         <SpInputText v-model="input.firstName.value" label="First name" placeholder="Example: Ferdian" :error="input.firstName.error" :show-skeleton="showSkeleton" :disabled="loading" />
       </div>
       <div class="col-span-1">
         <SpInputText v-model="input.lastName.value" label="Last name" placeholder="Example: Salwi" :error="input.lastName.error" :show-skeleton="showSkeleton" :disabled="loading" />
       </div>
-      <div :class="[input.division.value ? 'col-span-1' : 'col-span-2']">
+      <div class="col-span-1">
         <SpSelect
           label="Division"
           placeholder="Select a division"
@@ -22,7 +36,7 @@
           @change="selection => input.division.value = selection"
         />
       </div>
-      <div v-if="input.division.value" class="col-span-1">
+      <div class="col-span-1">
         <SpSelect
           label="Position"
           placeholder="Select a position"
@@ -98,7 +112,7 @@
           Cancel
         </SpButton>
         <SpButton color="prime" :disabled="loading" :loading="loading" @click="checkForm">
-          Add new employee
+          Update employee data
         </SpButton>
       </div>
     </div>
@@ -116,9 +130,9 @@ import SpButton from '~/components/partial/SpButton'
 
 definePageMeta({ layout: 'bts' })
 
-useHead({ title: 'Add new employee' })
+useHead({ title: 'Update employee data' })
 
-const newestEmployeeCookie = useCookie('newestEmployee')
+const employeeCookie = useCookie('employee')
 const { $checkNumberOnly, $toast } = useNuxtApp()
 const colorMode = useColorMode()
 const router = useRouter()
@@ -138,7 +152,7 @@ const listDivision = ref([])
 const listPosition = ref([])
 
 onMounted(() => {
-  if (newestEmployeeCookie.value) {
+  if (employeeCookie.value) {
     listDivision.value = [
       { id: 'Division 1', name: 'Division 1' },
       { id: 'Division 2', name: 'Division 2' },
@@ -151,6 +165,13 @@ onMounted(() => {
       { id: 'Position 4', name: 'Position 4' },
       { id: 'Position 5', name: 'Position 5' }
     ]
+    input.value.firstName.value = employeeCookie.value.firstName
+    input.value.lastName.value = employeeCookie.value.lastName
+    input.value.division.value = listDivision.value[listDivision.value.findIndex(i => i.id === employeeCookie.value.division)]
+    input.value.position.value = listPosition.value[listPosition.value.findIndex(i => i.id === employeeCookie.value.position)]
+    input.value.salary.value = employeeCookie.value.salary
+    input.value.address.value = employeeCookie.value.address
+    input.value.birthDate.value = employeeCookie.value.birthDate
     showSkeleton.value = false
   }
   else {
@@ -176,23 +197,8 @@ const checkForm = () => {
 }
 const submitForm = async () => {
   loading.value = true
-  const today = new Date ()
-  const joinOn = `${today.getDate()}-${(today.getMonth() + 1) >= 10 ? today.getMonth() + 1 : '0' + (today.getMonth() + 1)}-${today.getFullYear()}`
-  let number = 1
-  if (joinOn === newestEmployeeCookie.value.date) {
-    number = newestEmployeeCookie.value.number + 1
-  }
-  let numberString = number.toString()
-  if (numberString.length === 1) {
-    numberString = `00${numberString}`
-  }
-  else if (numberString.length === 2) {
-    numberString = `0${numberString}`
-  }
-  const sCode = `AQI-${joinOn.split('-').join('')}-${numberString}`
   const data = {
-    nip: sCode,
-    joinDate: joinOn,
+    id: employeeCookie.value.id,
     firstName: input.value.firstName.value,
     lastName: input.value.lastName.value,
     division: input.value.division.value.name,
@@ -201,9 +207,9 @@ const submitForm = async () => {
     address: input.value.address.value,
     birthDate: input.value.birthDate.value
   }
-  await employeeStore.add(data)
+  await employeeStore.edit(data)
     .then(() => {
-      $toast.success('Successfully added a new employee')
+      $toast.success('Successfully updated an employee')
       router.back()
     })
   loading.value = false

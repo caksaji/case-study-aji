@@ -80,7 +80,7 @@
         Back
       </SpButton>
       <template v-if="!showSkeleton">
-        <SpButton color="prime" @click="navigateTo('/update')">
+        <SpButton color="prime" @click="navigateTo('/update', { replace: true })">
           Update
         </SpButton>
         <SpButton color="red">

@@ -29,7 +29,7 @@ export const useEmployeeStore = defineStore('employee', () => {
     catch (error) { setSingle({}) }
   }
   const add = async data => await fetchApi('employees', { method: 'post', body: data })
-  const edit = async data => await fetchApi('employees', { method: 'put', body: data })
+  const edit = async data => await fetchApi(`employees/${data.id}`, { method: 'patch', body: data })
 
   return {
     all,
