@@ -1,6 +1,7 @@
 <template>
   <div class="space-y-4">
     <SectionTitle title="Employee Detail" />
+    <SkeletonBlock v-if="showSkeleton" class="h-8 rounded-md" />
     <div v-if="!showSkeleton" class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
       <div class="col-span-1">
         <div class="p-4 rounded-md bg-white shadow-md dark:bg-gray-800">
@@ -83,18 +84,21 @@
         <SpButton color="prime" @click="navigateTo('/update', { replace: true })">
           Update
         </SpButton>
-        <SpButton color="red">
+        <SpButton color="red" @click="modalDelete.showModal = true">
           Delete
         </SpButton>
       </template>
     </div>
+    <ModalDelete v-if="!showSkeleton" ref="modalDelete" @completed="router.back()" />
   </div>
 </template>
 
 <script setup>
 import SectionTitle from '~/components/partial/SectionTitle'
-import SpButton from '~/components/partial/SpButton'
+import SkeletonBlock from '~/components/partial/SkeletonBlock'
 import SpNumberFormat from '~/components/partial/SpNumberFormat'
+import SpButton from '~/components/partial/SpButton'
+import ModalDelete from '~/components/functional/employee/ModalDelete'
 
 definePageMeta({ layout: 'bts' })
 
@@ -105,6 +109,7 @@ const router = useRouter()
 const employeeCookie = useCookie('employee')
 const employeeStore = useEmployeeStore()
 const showSkeleton = ref(true)
+const modalDelete = ref(true)
 
 onMounted( async () => {
   if (employeeCookie.value) {

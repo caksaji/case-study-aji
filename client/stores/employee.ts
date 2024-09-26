@@ -30,6 +30,7 @@ export const useEmployeeStore = defineStore('employee', () => {
   }
   const add = async data => await fetchApi('employees', { method: 'post', body: data })
   const edit = async data => await fetchApi(`employees/${data.id}`, { method: 'patch', body: data })
+  const del = async data => await fetchApi(`employees/${data}`, { method: 'delete' })
 
   return {
     all,
@@ -39,6 +40,7 @@ export const useEmployeeStore = defineStore('employee', () => {
     getLast,
     getSingle,
     add,
-    edit
+    edit,
+    del
   }
 })
