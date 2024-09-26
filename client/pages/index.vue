@@ -2,7 +2,14 @@
   <div class="space-y-4">
     <div class="flex w-full">
       <SectionTitle title="Employee List" />
-      <SpButton v-if="!showSkeleton" color="prime" class="ml-auto" @click="openModalEdit(em)">
+      <SpButton
+        v-if="!showSkeleton"
+        color="prime"
+        :loading="loadingAdd"
+        :disabled="loadingAdd"
+        class="ml-auto"
+        @click="openAddForm"
+      >
         Add employee
       </SpButton>
     </div>
@@ -118,12 +125,17 @@ definePageMeta({
 
 useHead({ title: 'Employee list' })
 
+const newestEmployeeCookie = useCookie('newestEmployee')
 const employeeStore = useEmployeeStore()
 const showSkeleton = ref(true)
 const filter = ref({ page: 1 })
 const listEmplopyee = ref({})
+const loadingAdd = ref(false)
 
-onMounted(() => loadData())
+onMounted(() => {
+  newestEmployeeCookie.value = null
+  loadData()
+})
 
 const loadData = async () => {
   showSkeleton.value = true
@@ -136,5 +148,15 @@ const loadData = async () => {
 const date = (date) => {
   const sd = date.split('-')
   return new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(`${sd[1]}-${sd[0]}-${sd[2]}`))
+}
+const openAddForm = async () => {
+  loadingAdd.value = true
+  await employeeStore.getLast(listEmplopyee.value.items)
+    .then(() => {
+      const le = employeeStore.last.data[0]
+      newestEmployeeCookie.value = { date: le.joinDate, number: Number(le.nip.split('-')[2]) }
+      navigateTo('/add')
+      loadingAdd.value = false
+    })
 }
 </script>

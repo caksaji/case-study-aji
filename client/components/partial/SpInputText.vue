@@ -41,7 +41,7 @@
         >
         <div
           v-if="props.imitation"
-          tabindex="0"
+          :tabindex="props.disabled ? -1 : 0"
           class="select-none"
           :class="[inputTextKindClass, props.inputClass, 'outline-0', { 'cursor-text': !props.disabled }]"
           :style="[padding, { minHeight: `calc(2px + (${fragmentedRem} * 2) + 1.5rem + 1.59px)` }]"

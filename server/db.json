@@ -1,7 +1,8 @@
 {
   "employees": [
     {
-      "nip": "AQI-1212023-001",
+      "id": "1",
+      "nip": "AQI-26092024-001",
       "firstName": "Budi",
       "lastName": "Newgate",
       "address": "Jalan Wahid hasyim no 8",
@@ -9,249 +10,19 @@
       "salary": 7000000,
       "division": "Kintone",
       "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
+      "joinDate": "26-09-2024"
     },
     {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
-    },
-    {
-      "nip": "AQI-1212023-001",
-      "firstName": "Budi",
-      "lastName": "Newgate",
-      "address": "Jalan Wahid hasyim no 8",
-      "position": "Javascript Developer",
-      "salary": 7000000,
-      "division": "Kintone",
-      "birthDate": "03-12-1997",
-      "joinDate": "13-11-2024"
+      "id": "a4dd",
+      "nip": "AQI-26092024-002",
+      "joinDate": "26-09-2024",
+      "firstName": "Test",
+      "lastName": "26-1",
+      "division": "Division 2",
+      "position": "Position 3",
+      "salary": "123456789",
+      "address": "Batam",
+      "birthDate": "11-09-2024"
     }
   ]
 }
